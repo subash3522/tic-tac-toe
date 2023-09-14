@@ -8,3 +8,7 @@
     height: 50px;
     width: 50px;
 }
+.board{
+    display: grid;
+    grid-template-rows: auto auto auto;
+}
