@@ -9,6 +9,8 @@
     width: 50px;
 }
 .board{
+    width: 150px;
     display: grid;
     grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto;
 }

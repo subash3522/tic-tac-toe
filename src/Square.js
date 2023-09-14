@@ -1,10 +1,10 @@
 import React from 'react'
 import './App.css'
 
-function Square() {
+function Square({index,clickHandler,value}) {
   return (
     <>
-    <button className="square"></button>
+    <button className="square" onClick={()=>clickHandler(index)} >{value}</button>
     </>
   )
 }
