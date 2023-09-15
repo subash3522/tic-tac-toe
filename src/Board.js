@@ -78,6 +78,7 @@ function Board() {
         ))}
       </div>
       <div className="gohistory">
+        <div className="reset" onClick={()=>{setArr(Array(9).fill(null)); setHistory([]); setNext(true)}}>Reset Game</div>
         {history.map((value,index)=>{
           
            return (<li>

@@ -14,3 +14,6 @@
     grid-template-rows: auto auto auto;
     grid-template-columns: auto auto auto;
 }
+.gohistory{
+    list-style: none;
+}
