@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import Square from "./Square";
 import "./App.css";
-import History from './History.js'
+import History from "./History.js";
 
 function Board() {
   const [arr, setArr] = useState(Array(9).fill(null));
   const [next, setNext] = useState(true);
-  const [history, setHistory] = useState([])
+  const [history, setHistory] = useState([]);
+  const [user1, setUser1] = useState("");
+  const [user1Show, setUser1Show] = useState('')
+  const [user2, setUser2] = useState("");
+  const [user2Show, setUser2Show] = useState('')
+  const [userCollaps, setUserCollaps] = useState(true)
+ 
 
   const clickHandler = (a) => {
-    if (arr[a] || winner()) {
+    if (arr[a] || winner() || (userCollaps===true)){
       return;
     }
-    
+
     const newArr = [...arr];
     if (next) {
       newArr[a] = "X";
@@ -21,12 +27,12 @@ function Board() {
     }
     setArr(newArr);
     setNext(!next);
-    setHistory([...history,newArr])
+    setHistory([...history, newArr]);
   };
-  const abcarr = []
+  const abcarr = [];
 
-  const cdarr = [4,5,6]
-  console.log([...abcarr,...cdarr]);
+  const cdarr = [4, 5, 6];
+  console.log([...abcarr, ...cdarr]);
 
   const winner = () => {
     const line = [
@@ -48,45 +54,95 @@ function Board() {
       }
     }
     return null;
-    
   };
 
-  const historyHandler = (index)=>{
+  const historyHandler = (index) => {
     setArr(history[index]);
-  }
+  };
 
   console.log(winner());
   const move = winner();
   let status;
   if (move) {
-    status = "The Winner is:" + move;
+    status = "The Winner is:" + (next ? user2Show : user1Show);
   } else {
-    status = "Next Move:" + (next ? "X" : "O");
+    status = "Next Move:" + (next ? user1Show : user2Show);
   }
+
+
 
   return (
     <>
       <div className="status">{status}</div>
-      <div className="board">
-        {arr.map((value, index) => (
-          <Square
-            index={index}
-            clickHandler={clickHandler}
-            key={index}
-            value={value}
+      <div className="wholebox">
+        <div className="board">
+          {arr.map((value, index) => (
+            <Square
+              index={index}
+              clickHandler={clickHandler}
+              key={index}
+              value={value}
+            />
+          ))}
+        </div>
+        <div className="gohistory">
+          <div
+            className="reset"
+            onClick={() => {
+              setArr(Array(9).fill(null));
+              setHistory([]);
+              setNext(true);
+            }}
+          >
+            Reset Game
+          </div>
+          {history.map((value, index) => {
+            return (
+              <li>
+                <History
+                  index={index}
+                  id={index}
+                  historyHandler={historyHandler}
+                />
+              </li>
+            );
+          })}
+        </div>
+      </div>
+      <div className={userCollaps?'userDetails':'collapsed'}>
+        <div className="user1">
+          User 1
+          <input
+            type="text"
+            className="user"
+            value={user1}
+            onChange={(e) => setUser1(e.target.value)}
           />
-        ))}
-      </div>
-      <div className="gohistory">
-        <div className="reset" onClick={()=>{setArr(Array(9).fill(null)); setHistory([]); setNext(true)}}>Reset Game</div>
-        {history.map((value,index)=>{
           
-           return (<li>
-            <History index = {index} id = {index} historyHandler = {historyHandler}/>
-          </li>)
-        }
-        )}
+        </div>
+        <div className="user2">
+          User 2
+          <input
+            type="text"
+            className="user"
+            value={user2}
+            onChange={(e) => setUser2(e.target.value)}
+          />
+          <button onClick={(()=>{setUser2Show(user2); setUser2('');setUser1Show(user1); setUser1(''); setUserCollaps(false)})}>Submit</button>
+        </div>
       </div>
+      <div className={winner()?'win-popup':'normal'}>
+        <p><div
+            className="reset"
+            onClick={() => {
+              setArr(Array(9).fill(null));
+              setHistory([]);
+              setNext(true);
+            }}
+          >Restart</div></p>
+        <p>{status}</p>
+      </div>
+      <div className="change-user" onClick={()=>(setUserCollaps(true))}>Change User</div>
     </>
   );
 }

@@ -1,10 +1,26 @@
-import React from 'react'
 import './App.css'
 
 function Square({index,clickHandler,value}) {
+ 
+
+  const colorChanger = ()=>{
+    if(value === 'X'){
+      return 'yellow'
+    }
+    if (value ==='O'){
+      return 'blue'
+  }
+  else 
+  return 'square'
+}
+
+console.log(colorChanger());
+
+ 
+  
   return (
     <>
-    <button className="square" onClick={()=>clickHandler(index)} >{value}</button>
+    <button className={colorChanger()} onClick={()=>clickHandler(index)} >{value}</button>
     </>
   )
 }
