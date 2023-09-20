@@ -8,14 +8,13 @@ function Board() {
   const [next, setNext] = useState(true);
   const [history, setHistory] = useState([]);
   const [user1, setUser1] = useState("");
-  const [user1Show, setUser1Show] = useState('')
+  const [user1Show, setUser1Show] = useState("");
   const [user2, setUser2] = useState("");
-  const [user2Show, setUser2Show] = useState('')
-  const [userCollaps, setUserCollaps] = useState(true)
- 
+  const [user2Show, setUser2Show] = useState("");
+  const [userCollaps, setUserCollaps] = useState(true);
 
   const clickHandler = (a) => {
-    if (arr[a] || winner() || (userCollaps===true)){
+    if (arr[a] || winner() || userCollaps === true) {
       return;
     }
 
@@ -69,80 +68,107 @@ function Board() {
     status = "Next Move:" + (next ? user1Show : user2Show);
   }
 
-
-
   return (
     <>
-      <div className="status">{status}</div>
-      <div className="wholebox">
-        <div className="board">
-          {arr.map((value, index) => (
-            <Square
-              index={index}
-              clickHandler={clickHandler}
-              key={index}
-              value={value}
-            />
-          ))}
+      <div className="completeboard">
+        <div className="statusbox">
+        <div className="status">{status}</div>
         </div>
-        <div className="gohistory">
-          <div
-            className="reset"
-            onClick={() => {
-              setArr(Array(9).fill(null));
-              setHistory([]);
-              setNext(true);
-            }}
-          >
-            Reset Game
+        <div className="wholebox">
+          <div className="board">
+            {arr.map((value, index) => (
+              <Square
+                index={index}
+                clickHandler={clickHandler}
+                key={index}
+                value={value}
+              />
+            ))}
           </div>
-          {history.map((value, index) => {
-            return (
-              <li>
-                <History
-                  index={index}
-                  id={index}
-                  historyHandler={historyHandler}
-                />
-              </li>
-            );
-          })}
+          <div className="historytitle">
+            <div className="title">History of moves</div>
+            <div className="gohistory">
+              {history.map((value, index) => {
+                return (
+                  <li>
+                    <History
+                      index={index}
+                      id={index}
+                      historyHandler={historyHandler}
+                    />
+                  </li>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div className={userCollaps ? "userDetails" : "collapsed"}>
+          <div className="userinputs">
+            <div className="user1">
+              <p>User 1</p>
+              <input
+                type="text"
+                className="user"
+                value={user1}
+                onChange={(e) => setUser1(e.target.value)}
+              />
+            </div>
+            <div className="user2">
+              <p>User 2</p>
+              <input
+                type="text"
+                className="user"
+                value={user2}
+                onChange={(e) => setUser2(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="buttondiv">
+            <button
+              className="submit-button"
+              onClick={() => {
+                setUser2Show(user2);
+                setUser2("");
+                setUser1Show(user1);
+                setUser1("");
+                setUserCollaps(false);
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+        <div className={winner() ? "win-popup" : "normal"}>
+          <p>
+            <div
+              className="reset"
+              onClick={() => {
+                setArr(Array(9).fill(null));
+                setHistory([]);
+                setNext(true);
+              }}
+            >
+              Restart
+            </div>
+          </p>
+          <p>{status}</p>
+        </div>
+        <div className="change-user" onClick={() => setUserCollaps(true)}>
+          C
+        </div>
+
+        <div
+          className="reset"
+          onClick={() => {
+            setArr(Array(9).fill(null));
+            setHistory([]);
+            setNext(true);
+          }}
+        >
+          R
         </div>
       </div>
-      <div className={userCollaps?'userDetails':'collapsed'}>
-        <div className="user1">
-          User 1
-          <input
-            type="text"
-            className="user"
-            value={user1}
-            onChange={(e) => setUser1(e.target.value)}
-          />
-          
-        </div>
-        <div className="user2">
-          User 2
-          <input
-            type="text"
-            className="user"
-            value={user2}
-            onChange={(e) => setUser2(e.target.value)}
-          />
-          <button onClick={(()=>{setUser2Show(user2); setUser2('');setUser1Show(user1); setUser1(''); setUserCollaps(false)})}>Submit</button>
-        </div>
-      </div>
-      <div className={winner()?'win-popup':'normal'}>
-        <p><div
-            className="reset"
-            onClick={() => {
-              setArr(Array(9).fill(null));
-              setHistory([]);
-              setNext(true);
-            }}
-          >Restart</div></p>
-        <p>{status}</p>
-      </div>
-      <div className="change-user" onClick={()=>(setUserCollaps(true))}>Change User</div>
     </>
   );
 }
