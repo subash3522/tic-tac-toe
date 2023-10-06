@@ -1,4 +1,4 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -27,7 +27,7 @@
 .square{
   height: 50px;
   width: 50px;
-}
+} */
 .board {
   width: 160px;
   height: 160px;
@@ -38,7 +38,7 @@
   padding-left: 3px;
   padding-top: 3px;
 }
-.gohistory {
+/* .gohistory {
   list-style: none;
 }
 .win-popup{
@@ -78,6 +78,7 @@
   display: none;
 }
 .completeboard{
+  position: relative;
   width: 100%;
   height: 50vh;
   display: flex;
@@ -90,16 +91,15 @@
   
 }
 
-.reset{
+.resusr{
   position: absolute;
   top: 5px;
   right:40%;
+  display: flex;
+  justify-content: space-evenly;
+  width: 50px;
 }
-.change-user{
-  position: absolute;
-  top: 5px;
-  right:38%;
-}
+
 .buttondiv{
   display: flex;
   width: 100%;
@@ -128,6 +128,7 @@
   width: 100%;
   padding: 3px;
   box-shadow: 1px 1.2px 1.3px 1px;
+  font-size: 1rem;
 }
 
 .user1 input, .user2 input{
@@ -153,3 +154,19 @@
   background-color: brown;
   box-shadow: 1px 1.2px 1.3px;
 }
+
+@media (max-width: 557px) {
+  
+ .statusbox{
+  position: absolute;
+  width: 36%;
+  margin: 10px 0;
+ }
+ .wholebox{
+  margin-top: 60px;
+ }
+ .userDetails{
+  width: 70%;
+ }
+
+} */

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Square from "./Square";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// import './App.css'
 import History from "./History.js";
 
 function Board() {
@@ -68,65 +70,79 @@ function Board() {
     status = "Next Move:" + (next ? user1Show : user2Show);
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleForm = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    // For example, you can use fetch or axios to send the form data to a server
+  };
+
   return (
     <>
-      <div className="completeboard">
-        <div className="statusbox">
-        <div className="status">{status}</div>
-        </div>
-        <div className="wholebox">
-          <div className="board">
-            {arr.map((value, index) => (
-              <Square
-                index={index}
-                clickHandler={clickHandler}
-                key={index}
-                value={value}
-              />
-            ))}
-          </div>
-          <div className="historytitle">
-            <div className="title">History of moves</div>
-            <div className="gohistory">
-              {history.map((value, index) => {
-                return (
-                  <li>
-                    <History
-                      index={index}
-                      id={index}
-                      historyHandler={historyHandler}
-                    />
-                  </li>
-                );
-              })}
+      <div className="container-fluid d-flex justify-content-evenly">
+        <div className="d-flex flex-column">
+          <div className="statusbox text-center">winner</div>
+          <div className="wholebox border border-primary d-flex p-2">
+            <div className="board ">
+              {arr.map((value, index) => (
+                <Square
+                  index={index}
+                  clickHandler={clickHandler}
+                  key={index}
+                  value={value}
+                />
+              ))}
+            </div>
+            <div className=" ps-4">
+              <div className="title">History of moves</div>
+              <div className="gohistory">
+                {history.map((value, index) => {
+                  return (
+                    <li>
+                      <History
+                        index={index}
+                        id={index}
+                        historyHandler={historyHandler}
+                      />
+                    </li>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
 
-        <div className={userCollaps ? "userDetails" : "collapsed"}>
-          <div className="userinputs">
-            <div className="user1">
-              <p>User 1</p>
+        <div
+          className={` ${userCollaps ? "container max-width-sm position-absolute d-flex flex-column border border-danger  " : "d-none"}`} style={{maxWidth: '570px'}}
+        >
+          <div className="w-100 w-lg-75 border border-danger bg-success-subtle rounded">
+            <div className="d-flex my-3 justify-content-evenly align-cente">
+              <p className="btn btn-primary w-25">User 1</p>
               <input
                 type="text"
-                className="user"
+                className="form-control shadow border border-danger w-50"
                 value={user1}
                 onChange={(e) => setUser1(e.target.value)}
               />
             </div>
-            <div className="user2">
-              <p>User 2</p>
+            <div className="d-flex my-3 justify-content-evenly align-center">
+              <p className="btn btn-primary w-25  "> User 2</p>
               <input
                 type="text"
-                className="user"
+                className="form-control shadow border border-danger w-50"
                 value={user2}
                 onChange={(e) => setUser2(e.target.value)}
               />
             </div>
           </div>
-          <div className="buttondiv">
+          <div className="d-flex justify-content-center">
             <button
-              className="submit-button"
+              className="btn btn-success text-center"
               onClick={() => {
                 setUser2Show(user2);
                 setUser2("");
@@ -154,19 +170,21 @@ function Board() {
           </p>
           <p>{status}</p>
         </div>
-        <div className="change-user" onClick={() => setUserCollaps(true)}>
-          C
-        </div>
+        <div className="resusr">
+          <div className="change-user" onClick={() => setUserCollaps(true)}>
+            C
+          </div>
 
-        <div
-          className="reset"
-          onClick={() => {
-            setArr(Array(9).fill(null));
-            setHistory([]);
-            setNext(true);
-          }}
-        >
-          R
+          <div
+            className="reset"
+            onClick={() => {
+              setArr(Array(9).fill(null));
+              setHistory([]);
+              setNext(true);
+            }}
+          >
+            R
+          </div>
         </div>
       </div>
     </>
