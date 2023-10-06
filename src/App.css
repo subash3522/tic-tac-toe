@@ -34,7 +34,6 @@
   display: grid;
   grid-template-rows: auto auto auto;
   grid-template-columns: auto auto auto;
-  background-color: black;
   padding-left: 3px;
   padding-top: 3px;
 }
@@ -170,3 +169,12 @@
  }
 
 } */
+
+.boxp{
+  top: 20px;
+  right: 10%;
+}
+.blu {
+  height: 50px;
+  width: 50px;
+}

@@ -5,10 +5,10 @@ function Square({index,clickHandler,value}) {
 
   const colorChanger = ()=>{
     if(value === 'X'){
-      return 'yellow'
+      return 'bg-success'
     }
     if (value ==='O'){
-      return 'blue'
+      return 'bg-danger'
   }
   else 
   return 'square'

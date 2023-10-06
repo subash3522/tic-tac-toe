@@ -84,11 +84,11 @@ function Board() {
 
   return (
     <>
-      <div className="container-fluid d-flex justify-content-evenly">
+      <div className="container-fluid d-flex justify-content-evenly pt-5 pt-md-1">
         <div className="d-flex flex-column">
-          <div className="statusbox text-center">winner</div>
+          <div className="statusbox text-center">Enjoy</div>
           <div className="wholebox border border-primary d-flex p-2">
-            <div className="board ">
+            <div className="board " style={{minWidth:'180px'}}>
               {arr.map((value, index) => (
                 <Square
                   index={index}
@@ -99,11 +99,11 @@ function Board() {
               ))}
             </div>
             <div className=" ps-4">
-              <div className="title">History of moves</div>
-              <div className="gohistory">
+              <div className="text-center">History of moves</div>
+              <div className="list-group list-unstyled">
                 {history.map((value, index) => {
                   return (
-                    <li>
+                    <li className="py-1">
                       <History
                         index={index}
                         id={index}
@@ -118,7 +118,7 @@ function Board() {
         </div>
 
         <div
-          className={` ${userCollaps ? "container max-width-sm position-absolute d-flex flex-column border border-danger  " : "d-none"}`} style={{maxWidth: '570px'}}
+          className={` ${userCollaps ? "container max-width-sm position-absolute d-flex flex-column border border-danger z-1 " : "d-none"}`} style={{maxWidth: '570px'}}
         >
           <div className="w-100 w-lg-75 border border-danger bg-success-subtle rounded">
             <div className="d-flex my-3 justify-content-evenly align-cente">
@@ -142,7 +142,7 @@ function Board() {
           </div>
           <div className="d-flex justify-content-center">
             <button
-              className="btn btn-success text-center"
+              className="btn btn-success text-center w-25"
               onClick={() => {
                 setUser2Show(user2);
                 setUser2("");
@@ -155,10 +155,10 @@ function Board() {
             </button>
           </div>
         </div>
-        <div className={winner() ? "win-popup" : "normal"}>
+        <div className={winner() ? "d-flex z-3 justify-content-evenly align-item=center shadow flex-column position-absolute bg-warning rounded w-75 h-25" : "d-none"} style = {{maxWidth:'570px'}}>
           <p>
             <div
-              className="reset"
+              className="text-center w-100 btn btn-primary"
               onClick={() => {
                 setArr(Array(9).fill(null));
                 setHistory([]);
@@ -168,15 +168,15 @@ function Board() {
               Restart
             </div>
           </p>
-          <p>{status}</p>
+          <p className="text-center w-100 btn btn-primary ">{status}</p>
         </div>
-        <div className="resusr">
-          <div className="change-user" onClick={() => setUserCollaps(true)}>
+        <div className=" d-flex flex-column position-absolute  p-3 boxp ">
+          <div className="btn btn-warning mb-3 " onClick={() => setUserCollaps(true)}>
             C
           </div>
 
           <div
-            className="reset"
+            className="btn btn-danger"
             onClick={() => {
               setArr(Array(9).fill(null));
               setHistory([]);
